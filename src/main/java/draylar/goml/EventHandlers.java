@@ -89,7 +89,9 @@ public class EventHandlers {
 
     private static ActionResult testPermission(Selection<Entry<ClaimBox, Claim>> claims, PlayerEntity player, Hand hand, BlockPos pos, PermissionReason reason) {
         if(!claims.isEmpty()) {
-            boolean noPermission = claims.anyMatch((Entry<ClaimBox, Claim> boxInfo) -> !boxInfo.getValue().hasPermission(player));
+            boolean noPermission = claims.anyMatch((Entry<ClaimBox, Claim> boxInfo) -> !(
+                    boxInfo.getValue().hasPermission(player) && (!boxInfo.getValue().getOrigin().equals(pos) || boxInfo.getValue().isOwner(player))
+            ));
 
             if(noPermission && !player.hasPermissionLevel(3)) {
                 ActionResult check = ClaimEvents.PERMISSION_DENIED.invoker().check(player, player.world, hand, pos, reason);
