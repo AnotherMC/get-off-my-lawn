@@ -9,26 +9,32 @@ import draylar.goml.api.ClaimBox;
 import draylar.goml.api.ClaimUtils;
 import draylar.goml.block.ClaimAnchorBlock;
 import draylar.goml.entity.ClaimAnchorBlockEntity;
+import eu.pb4.polymer.item.VirtualItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class UpgradeKitItem extends Item {
+public class UpgradeKitItem extends Item implements VirtualItem {
 
     private final ClaimAnchorBlock from;
     private final ClaimAnchorBlock to;
@@ -103,7 +109,6 @@ public class UpgradeKitItem extends Item {
         return ActionResult.PASS;
     }
 
-    @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         if(tooltip == null) {
@@ -111,5 +116,18 @@ public class UpgradeKitItem extends Item {
         }
 
         tooltip.add(new TranslatableText(from.getTranslationKey()).append(" -> ").append(new TranslatableText(to.getTranslationKey())).formatted(Formatting.GRAY));
+    }
+
+    @Override
+    public Item getVirtualItem() {
+        return Items.PLAYER_HEAD;
+    }
+
+    @Override
+    public ItemStack getVirtualItemStack(ItemStack itemStack, @Nullable ServerPlayerEntity player) {
+        ItemStack stack = VirtualItem.super.getVirtualItemStack(itemStack, player);
+        stack.addEnchantment(Enchantments.QUICK_CHARGE, 1);
+        stack.getTag().put("SkullOwner", this.to.getVirtualHeadSkullOwner(this.to.getDefaultState()));
+        return stack;
     }
 }

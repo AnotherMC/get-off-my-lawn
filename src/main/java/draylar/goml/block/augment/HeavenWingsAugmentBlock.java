@@ -19,7 +19,7 @@ public class HeavenWingsAugmentBlock extends ClaimAugmentBlock {
     public static final AbilitySource HEAVEN_WINGS = Pal.getAbilitySource("goml", "heaven_wings");
 
     public HeavenWingsAugmentBlock(Settings settings) {
-        super(settings);
+        super(settings, "");
     }
 
     @Override

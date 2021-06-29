@@ -3,6 +3,8 @@ package draylar.goml.block;
 import draylar.goml.api.Augment;
 import draylar.goml.entity.ClaimAnchorBlockEntity;
 import draylar.goml.entity.ClaimAugmentBlockEntity;
+import eu.pb4.polymer.block.VirtualBlock;
+import eu.pb4.polymer.block.VirtualHeadBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -17,10 +19,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class ClaimAugmentBlock extends Block implements Augment, BlockEntityProvider {
+public class ClaimAugmentBlock extends Block implements Augment, BlockEntityProvider, VirtualHeadBlock {
 
-    public ClaimAugmentBlock(Settings settings) {
+    private final String texture;
+
+    public ClaimAugmentBlock(Settings settings, String texture) {
         super(settings);
+        this.texture = texture;
     }
 
     @Override
@@ -94,5 +99,10 @@ public class ClaimAugmentBlock extends Block implements Augment, BlockEntityProv
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ClaimAugmentBlockEntity(pos, state);
+    }
+
+    @Override
+    public String getVirtualHeadSkin(BlockState state) {
+        return this.texture;
     }
 }

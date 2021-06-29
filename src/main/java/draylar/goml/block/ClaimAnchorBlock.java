@@ -5,6 +5,7 @@ import draylar.goml.api.ClaimBox;
 import draylar.goml.api.Claim;
 import draylar.goml.api.ClaimUtils;
 import draylar.goml.entity.ClaimAnchorBlockEntity;
+import eu.pb4.polymer.block.VirtualHeadBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -20,13 +21,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 
-public class ClaimAnchorBlock extends Block implements BlockEntityProvider {
+public class ClaimAnchorBlock extends Block implements BlockEntityProvider, VirtualHeadBlock {
 
     private final int radius;
+    private final String texture;
 
-    public ClaimAnchorBlock(Block.Settings settings, int radius) {
+    public ClaimAnchorBlock(Block.Settings settings, int radius, String texture) {
         super(settings);
         this.radius = radius;
+        this.texture = texture;
     }
 
     @Override
@@ -91,5 +94,10 @@ public class ClaimAnchorBlock extends Block implements BlockEntityProvider {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ClaimAnchorBlockEntity(pos, state);
+    }
+
+    @Override
+    public String getVirtualHeadSkin(BlockState state) {
+        return this.texture;
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 public class AngelicAuraAugmentBlock extends ClaimAugmentBlock {
 
     public AngelicAuraAugmentBlock(Settings settings) {
-        super(settings);
+        super(settings, "");
     }
 
     @Override

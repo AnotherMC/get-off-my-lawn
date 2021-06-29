@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 public class WitheringSealAugmentBlock extends ClaimAugmentBlock {
 
     public WitheringSealAugmentBlock(Settings settings) {
-        super(settings);
+        super(settings, "");
     }
 
     @Override

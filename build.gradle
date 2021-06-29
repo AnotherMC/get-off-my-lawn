@@ -17,6 +17,7 @@ minecraft {
 repositories {
 	maven { url = "https://maven.fabricmc.net/" }
 	maven { url = 'https://jitpack.io' }
+	maven { url = 'https://maven.nucleoid.xyz'}
 
 	maven {
 		url = "https://maven.jamieswhiteshirt.com/libs-release/"
@@ -62,6 +63,10 @@ dependencies {
 	// Flight
 	modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 	include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+
+	modImplementation include("eu.pb4:polymer:${polymer_version}")
+	modImplementation include("fr.catcore:server-translations-api:${translations_version}")
+
 
 	// Dev testing
 	modCompileOnly modRuntime ('curse.maven:BLAST-349938:3350311')

@@ -5,6 +5,6 @@ import draylar.goml.block.ClaimAugmentBlock;
 public class EnderBindingAugmentBlock extends ClaimAugmentBlock {
 
     public EnderBindingAugmentBlock(Settings settings) {
-        super(settings);
+        super(settings, "");
     }
 }
